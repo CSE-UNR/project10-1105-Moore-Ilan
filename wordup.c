@@ -50,7 +50,13 @@ int main(){
 		bool validguess = false; //initializes validguess at false
 		
 		//start of game, since guesses starts at zero we add 1 to display the correct value to user
+		if (guessIndex == MAXGUESSES - 1){//if user is at last guess it will display this message
+		printf("FINAL GUESS : ");
+		} else{//normally displays next message
 		printf("GUESS %d! Enter your guess: ", guessIndex + 1);
+		}
+		
+		
 		while (!validguess){//loops until guess is valid
 			scanf("%s", guess);//checks user's input
 			
@@ -79,7 +85,9 @@ int main(){
 		
 		guessIndex++;//increase guess index by 1
 	}
-	
+	if (!won){//checks if user has not one once loop is over
+		printf("You lost, better luck next time!\n");//losing message
+		}
 	return 0;
 }
 
