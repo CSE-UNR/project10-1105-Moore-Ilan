@@ -101,7 +101,7 @@ void loadWord(char mysteryWord[]){
 
 	int i = 0;//declares index
 	char c;//declares c
-	while (i < WORDLENGTH && (c = fgetc(file)) != EOF && c != '\n'){//loops the length of the word, and makes sure that c isn't end of file or a newline character
+	while (i < WORDLENGTH && (c = fgetc(file)) != '\0' && c != '\n'){//loops the length of the word, and makes sure that c isn't end of file or a newline character
 		mysteryWord[i++] = toLower(c);//sets c to lowercase incase a letter is uppercase in the WORDLIST file
 	}
 	mysteryWord[i] = '\0';//appends null character to end of string
