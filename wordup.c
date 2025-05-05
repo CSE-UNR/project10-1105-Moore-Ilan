@@ -58,7 +58,7 @@ int main(){
 		
 		
 		while (!validguess){//loops until guess is valid
-			scanf("%s", guess);//checks user's input
+			scanf("%s", &guess);//checks user's input
 			
 			validguess = sanitizeGuess(guess);//runs isValidGuess function
 			
