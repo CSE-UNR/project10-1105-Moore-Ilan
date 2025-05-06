@@ -112,29 +112,29 @@ void loadWord(char mysteryWord[]){
 
 /*processes user's guess, if a letter is correct it will capitalize and put it into the allGuesses 2d array depending on guess index, this time i've decided to make sure words with matching letters work*/
 void processGuess(char guess[], char mysteryWord[], char allGuesses[][WORDLENGTH + 1], int guessIndex) {
-	bool matched[WORDLENGTH] = {false}; // Track which letters have been matched
+	bool matched[WORDLENGTH] = {false}; // track which letters have been matched with a boolean array, initialized at false
 
-	for (int i = 0; i < WORDLENGTH; i++) {
-		if (guess[i] == mysteryWord[i]) {
-			allGuesses[guessIndex][i] = toCaps(guess[i]);
-			matched[i] = true; // Mark this letter as matched
+	for (int i = 0; i < WORDLENGTH; i++) {//loop for all letters
+		if (guess[i] == mysteryWord[i]) {//if guess letter i and mystery letter i are =
+			allGuesses[guessIndex][i] = toCaps(guess[i]);//put a capitalized version of it into allGuesses at i
+			matched[i] = true; // mark this letter as matched
 		} else {
-			allGuesses[guessIndex][i] = guess[i]; // Lowercase by default
+			allGuesses[guessIndex][i] = guess[i]; // lowercase by default
 		}
 	}
-	allGuesses[guessIndex][WORDLENGTH] = '\0';
+	allGuesses[guessIndex][WORDLENGTH] = '\0';//appends null to end
 }
 
 void processPointers(char guess[], char mysteryWord[], char pointers[][WORDLENGTH + 1], int guessIndex) {
-	bool matched[WORDLENGTH] = {false}; // Track used letters in mysteryWord
+	bool matched[WORDLENGTH] = {false}; // track used letters in mysteryWord
 
-	// First pass: match correct positions
-	for (int i = 0; i < WORDLENGTH; i++) {
-		if (guess[i] == mysteryWord[i]) {
-			matched[i] = true;
-			pointers[guessIndex][i] = ' '; // Correct letters are capitalized, no ^
+	// first pass: match correct positions
+	for (int i = 0; i < WORDLENGTH; i++) {//loop for all letters
+		if (guess[i] == mysteryWord[i]) {//checks if letters match places
+			matched[i] = true; //sets letter to matched
+			pointers[guessIndex][i] = ' '; // correct letters are capitalized, no ^
 		} else {
-			pointers[guessIndex][i] = ' '; // Initialize pointer
+			pointers[guessIndex][i] = ' '; // initialize pointer
 	}
 }
 
@@ -142,16 +142,16 @@ void processPointers(char guess[], char mysteryWord[], char pointers[][WORDLENGT
 	for (int i = 0; i < WORDLENGTH; i++) {
 		if (guess[i] == mysteryWord[i]) continue; // Already matched
 
-		for (int j = 0; j < WORDLENGTH; j++) {
-			if (!matched[j] && toLower(guess[i]) == toLower(mysteryWord[j])) {
+		for (int j = 0; j < WORDLENGTH; j++) {//loop for all letters
+			if (!matched[j] && toLower(guess[i]) == toLower(mysteryWord[j])) {//if the letter is flagged as not already matching and the letter is found in the mystery word
 				pointers[guessIndex][i] = '^';
-				matched[j] = true; // Mark this mystery letter as used
-				break;
+				matched[j] = true; // Mark this mystery letter as used, prevents letter from being flagged too many times
+				break;//breaks out of for j loop
 			}
 		}
 	}
 
-	pointers[guessIndex][WORDLENGTH] = '\0';
+	pointers[guessIndex][WORDLENGTH] = '\0';//appends null to end
 }
 
 void displayGuesses(char allGuesses[][WORDLENGTH + 1], char pointers[][WORDLENGTH + 1], int guessIndex){//displays all previous guesses
